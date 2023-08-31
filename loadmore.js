@@ -2,7 +2,8 @@ let items = [];
 const itemsPerPage = 5; 
 let currentPage = 0;
 
-document.getElementById("loadMoreBtn").addEventListener("click", loadItems);
+const loadMoreBtn = document.getElementById("loadMoreBtn");
+loadMoreBtn.addEventListener("click", loadItems);
 
 function loadItems() {
   const itemContainer = document.getElementById("itemContainer");
@@ -27,6 +28,20 @@ function loadItems() {
   }
   itemContainer.innerHTML += itemsHTML;
 
+
+  // Scroll to the position before loading new items
+  // Calculate the position of the button
+  const loadMoreBtnPosition = loadMoreBtn.getBoundingClientRect().top + window.scrollY;
+
+  // Scroll to the position of the "Load More" button after loading items
+  setTimeout(() => {
+    loadMoreBtn.scrollIntoView({ behavior: "smooth" });
+
+    window.scrollTo({ top: loadMoreBtnPosition, behavior: "smooth" });
+  }, 100);
+  
+
+  // 
   currentPage++;
 
   // Check if there are more items to load
