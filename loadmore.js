@@ -72,7 +72,8 @@ function loadItems() {
         setTimeout(() => {
             loadMoreBtn.scrollIntoView({ behavior: "smooth" });
 
-            window.scrollTo({ top: loadMoreBtnPosition, behavior: "smooth" });
+            // window.scrollTo({ top: loadMoreBtnPosition, behavior: "smooth" });
+            location.hash(loadMoreBtnPosition);
         }, 100);
 
         // Increment the current page
