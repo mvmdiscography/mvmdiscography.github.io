@@ -4,3 +4,8 @@
 ![preview](/preview.png)
 
 [LIVE SITE](https://mvmdiscography.github.io)
+
+
+
+## ISSUES
+- using location.hash add #randomnumbers to the url address bar which is sub-optimal

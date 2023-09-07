@@ -2,6 +2,7 @@ let items = [];
 const itemsPerPage = 5;
 let currentPage = 0;
 
+const buttonContainer = document.querySelector(".buttonContainer");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
 const loadingMessage = document.getElementById("loadingMessage");
 loadMoreBtn.addEventListener("click", loadItems);
@@ -64,14 +65,9 @@ function loadItems() {
         itemContainer.innerHTML += itemsHTML;
         hideLoadingMessage();
 
-        // Scroll to the position before loading new items
-        // Calculate the position of the button
-        const loadMoreBtnPosition = loadMoreBtn.getBoundingClientRect().top + window.scrollY;
-
         // Scroll to the position of the "Load More" button after loading items
         setTimeout(() => {
-            loadMoreBtn.scrollIntoView({ behavior: "smooth" });
-            location.hash = loadMoreBtnPosition;
+            buttonContainer.scrollIntoView({ behavior: "smooth" });
         }, 100);
 
 
