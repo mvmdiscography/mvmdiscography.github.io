@@ -71,10 +71,9 @@ function loadItems() {
         // Scroll to the position of the "Load More" button after loading items
         setTimeout(() => {
             loadMoreBtn.scrollIntoView({ behavior: "smooth" });
-
-            // window.scrollTo({ top: loadMoreBtnPosition, behavior: "smooth" });
-            location.hash(loadMoreBtnPosition);
+            location.hash = loadMoreBtnPosition;
         }, 100);
+
 
         // Increment the current page
         currentPage++;
