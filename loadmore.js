@@ -82,7 +82,7 @@ function loadItems() {
 }
 
 // Initial data load on page load
-fetch("https://raw.githubusercontent.com/mvmdiscography/mvmdiscography.github.io/main/data.json")
+fetch("https://mvmdiscography.github.io/data.json")
     .then(response => response.json())
     .then(data => {
         console.log(`%c ${data.status}`, 'color: white; background-color: green; padding: 10px;');
