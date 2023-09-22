@@ -65,10 +65,15 @@ function loadItems() {
         itemContainer.innerHTML += itemsHTML;
         hideLoadingMessage();
 
-        // Scroll to the position of the "Load More" button after loading items
-        setTimeout(() => {
-            buttonContainer.scrollIntoView({ behavior: "smooth" });
-        }, 100);
+        // Scroll to the position of the "Load More" button after loading items if the viewport is larger than 767px
+        if (currentPage !== 0) {
+          setTimeout(() => {
+            if (window.innerWidth > 767) {
+              buttonContainer.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 100);
+        }
+
 
 
         // Increment the current page
