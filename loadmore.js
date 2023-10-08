@@ -1,27 +1,33 @@
 let items = [];
-const itemsPerPage = 5;
 let currentPage = 0;
+// const itemsPerPage = 5;
+
+// Function to update itemsPerPage based on viewport size
+function updateItemsPerPage() {
+  if (window.innerWidth < 768) {
+    itemsPerPage = 4;
+  }
+  else if (window.innerWidth > 700 &&  window.innerWidth < 1024) {
+    itemsPerPage = 3;
+  } 
+  else if (window.innerWidth > 1024 &&  window.innerWidth < 1651) {
+    itemsPerPage = 4;
+  } 
+  else {
+    itemsPerPage = 5;
+  }
+}
+
+// Initial update based on the current viewport size
+updateItemsPerPage();
+
+// Add a resize event listener to update itemsPerPage when the viewport size changes
+window.addEventListener('resize', updateItemsPerPage);
 
 const buttonContainer = document.querySelector(".buttonContainer");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
 const loadingMessage = document.getElementById("loadingMessage");
 loadMoreBtn.addEventListener("click", loadItems);
-
-function preloadImages(urls, callback) {
-    var loadedImages = 0;
-    var totalImages = urls.length;
-
-    urls.forEach(function(url) {
-        var img = new Image();
-        img.onload = function() {
-            loadedImages++;
-            if (loadedImages === totalImages) {
-                callback();
-            }
-        };
-        img.src = url;
-    });
-}
 
 function showLoadingMessage() {
     loadingMessage.style.display = "block";
@@ -57,33 +63,26 @@ function loadItems() {
         </div></a>`;
     }
 
-    // Add image URLs to preload
-    const imageUrlsToPreload = itemsToDisplay.map(item => item.artwork);
+    itemContainer.innerHTML += itemsHTML;
+    hideLoadingMessage();
 
-    // Preload images and then update the container
-    preloadImages(imageUrlsToPreload, function() {
-        itemContainer.innerHTML += itemsHTML;
-        hideLoadingMessage();
-
-        // Scroll to the position of the "Load More" button after loading items if the viewport is larger than 767px
-        if (currentPage !== 0) {
-          setTimeout(() => {
-            if (window.innerWidth > 767) {
-              buttonContainer.scrollIntoView({ behavior: "smooth" });
-            }
-          }, 100);
+    // Scroll to the position of the "Load More" button after loading items if the viewport is larger than 767px
+    if (currentPage !== 0) {
+      setTimeout(() => {
+        if (window.innerWidth > 480) {
+          buttonContainer.scrollIntoView({ behavior: "smooth" });
         }
+      }, 100);
+    }
 
+    // Increment the current page
+    currentPage++;
 
+    // Check if there are more items to load
+    if (currentPage * itemsPerPage >= items.length) {
+        document.getElementById("loadMoreBtn").style.display = "none";
+    }
 
-        // Increment the current page
-        currentPage++;
-
-        // Check if there are more items to load
-        if (currentPage * itemsPerPage >= items.length) {
-            document.getElementById("loadMoreBtn").style.display = "none";
-        }
-    });
 }
 
 // Initial data load on page load
