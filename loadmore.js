@@ -86,10 +86,10 @@ function loadItems() {
 }
 
 // Initial data load on page load
-fetch("https://mvmdiscography.github.io/data.json")
+fetch("https://mvmapi.olk1.com/albums")
     .then(response => response.json())
     .then(data => {
         console.log(`%c ${data.status}`, 'color: white; background-color: green; padding: 10px;');
-        items = data.music.releases.reverse(); // Update the global items array with new data
+        items = data.reverse(); // Update the global items array with new data
         loadItems(); // Initial load of items
     });
